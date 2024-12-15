@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
@@ -7,6 +7,14 @@ import { IoBagOutline } from "react-icons/io5";
 import Link from "next/link";
 
 const Navbar = () => {
+  // State to track if the mobile menu is open or closed
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Toggle mobile menu
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <>
       <header className="max-h-[96%]">
@@ -20,10 +28,18 @@ const Navbar = () => {
           {/* Navigation Links */}
           <div className="hidden md:flex">
             <ul className="flex gap-2 md:gap-5">
-             <Link href="./products"><li className="hover:underline cursor-pointer">Products</li></Link>
-             <Link href="./signuppage"><li className="hover:underline cursor-pointer">Join us</li></Link>
-             <Link href="./loginpage"><li className="hover:underline cursor-pointer">Sign in</li></Link>
-             <Link href="./contactpage"><li className="hover:underline cursor-pointer">Contact us</li></Link>
+              <Link href="./products">
+                <li className="hover:underline cursor-pointer">Products</li>
+              </Link>
+              <Link href="./signuppage">
+                <li className="hover:underline cursor-pointer">Join us</li>
+              </Link>
+              <Link href="./loginpage">
+                <li className="hover:underline cursor-pointer">Sign in</li>
+              </Link>
+              <Link href="./contactpage">
+                <li className="hover:underline cursor-pointer">Contact us</li>
+              </Link>
             </ul>
           </div>
 
@@ -31,10 +47,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               className="p-2 text-gray-600 focus:outline-none"
-              onClick={() => {
-                const nav = document.getElementById("mobile-menu");
-                if (nav) nav.classList.toggle("hidden");
-              }}
+              onClick={toggleMenu} // Toggling the state instead of direct DOM manipulation
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -56,13 +69,43 @@ const Navbar = () => {
           {/* Mobile Dropdown Menu */}
           <div
             id="mobile-menu"
-            className="absolute top-[36px] right-0 bg-[#F5F5F5] w-full p-4 hidden flex-col text-sm"
+            className={`absolute top-[36px] right-0 bg-[#F5F5F5] w-full p-4 ${
+              isMenuOpen ? "flex" : "hidden"
+            } flex-col text-sm`}
           >
             <ul className="flex flex-col gap-2">
-              <li className="hover:underline cursor-pointer">Products</li>
-              <li className="hover:underline cursor-pointer">Join us</li>
-              <li className="hover:underline cursor-pointer">Sign in</li>
-              <li className="hover:underline cursor-pointer">Contact us</li>
+              <Link href="./products">
+                <li
+                  className="hover:underline cursor-pointer"
+                  onClick={toggleMenu} // Close menu after click
+                >
+                  Products
+                </li>
+              </Link>
+              <Link href="./signuppage">
+                <li
+                  className="hover:underline cursor-pointer"
+                  onClick={toggleMenu} // Close menu after click
+                >
+                  Join us
+                </li>
+              </Link>
+              <Link href="./loginpage">
+                <li
+                  className="hover:underline cursor-pointer"
+                  onClick={toggleMenu} // Close menu after click
+                >
+                  Sign in
+                </li>
+              </Link>
+              <Link href="./contactpage">
+                <li
+                  className="hover:underline cursor-pointer"
+                  onClick={toggleMenu} // Close menu after click
+                >
+                  Contact us
+                </li>
+              </Link>
             </ul>
           </div>
         </div>
@@ -70,7 +113,9 @@ const Navbar = () => {
         {/* Main navbar */}
         <div className="py-3 w-full flex flex-col md:flex-row items-center justify-between px-4 md:px-10">
           <div className="flex justify-center md:justify-start">
-            <Link href="./"><Image src="/images/sign.png" alt="logo" width={80} height={50} /></Link>
+            <Link href="./">
+              <Image src="/images/sign.png" alt="logo" width={80} height={50} />
+            </Link>
           </div>
 
           {/* Links */}
@@ -99,7 +144,9 @@ const Navbar = () => {
               <CiHeart size={24} />
             </div>
             <div>
-              <Link href="./cartpage"><IoBagOutline size={24} /></Link>
+              <Link href="./cartpage">
+                <IoBagOutline size={24} />
+              </Link>
             </div>
           </div>
         </div>
