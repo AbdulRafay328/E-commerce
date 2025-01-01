@@ -80,7 +80,7 @@ const Productpage = () => {
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-10 w-full">
           {cardData.map((card) => (
-            <Link href={`/products/${card.id}`}>
+            <Link key={card.id} href={`/products/${card.id}`}>
             <Card
               key={card.id}
               id={card.id}
