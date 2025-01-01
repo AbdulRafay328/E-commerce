@@ -3,8 +3,11 @@ import Image from "next/image";
 import Card from "@/components/card";
 import { FaChevronDown } from "react-icons/fa6";
 import { IoIosArrowUp } from "react-icons/io";
+import Link from "next/link";
+import cardData from "@/data/cardData";
 
 const Productpage = () => {
+
   return (
     <>
       {/* Header Section */}
@@ -76,62 +79,18 @@ const Productpage = () => {
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-10 w-full">
-          <Card
-            id={1}
-            img="/images/boot1.png"
-            rate={1500}
-            des="Mens versatile shorts"
-            name="Nike Outdoor Play"
-          />
-          <Card
-            id={2}
-            img="/images/boot2.png"
-            rate={800}
-            des="Men Shorts"
-            name="Jordan Series"
-          />
-          <Card
-            id={3}
-            img="/images/boot3.png"
-            rate={1600}
-            des="Women Shorts"
-            name="Nike1"
-          />
-          <Card
-            id={4}
-            img="/images/boot4.png"
-            rate={400}
-            des="High-quality hoodie"
-            name="Nike2"
-          />
-          <Card
-            id={5}
-            img="/images/skirt.png"
-            rate={400}
-            des="Comfortable skirt"
-            name="Nike2"
-          />
-          <Card
-            id={6}
-            img="/images/west.png"
-            rate={1100}
-            des="Versatile vest"
-            name="Nike3"
-          />
-          <Card
-            id={7}
-            img="/images/boot2.png"
-            rate={1500}
-            des="Classic sneakers"
-            name="Nike4"
-          />
-          <Card
-            id={8}
-            img="/images/jackets.png"
-            rate={1500}
-            des="Durable jacket"
-            name="Nike4"
-          />
+          {cardData.map((card) => (
+            <Link href={`/products/${card.id}`}>
+            <Card
+              key={card.id}
+              id={card.id}
+              img={card.img}
+              rate={card.rate}
+              des={card.des}
+              name={card.name}
+            />
+            </Link>
+          ))}
         </div>
       </div>
     </>
