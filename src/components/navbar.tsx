@@ -144,7 +144,7 @@ const Navbar = () => {
               <CiHeart size={24} />
             </div>
             <div>
-              <Link href="./cartpage">
+              <Link href="../cartpage">
                 <IoBagOutline size={24} />
               </Link>
             </div>

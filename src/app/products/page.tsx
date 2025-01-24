@@ -5,9 +5,23 @@ import { FaChevronDown } from "react-icons/fa6";
 import { IoIosArrowUp } from "react-icons/io";
 import Link from "next/link";
 import cardData from "@/data/cardData";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
-const Productpage = () => {
-
+const Productpage = async () => {
+  const Datafetch = await client.fetch(
+    `*[_type == "product"]{
+  _id,
+  productName,
+    category,
+    status,
+    price,
+    inventory,
+    description,
+    image
+}`
+  );
+  
   return (
     <>
       {/* Header Section */}
@@ -79,16 +93,17 @@ const Productpage = () => {
 
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-10 w-full">
-          {cardData.map((card) => (
-            <Link key={card.id} href={`/products/${card.id}`}>
-            <Card
-              key={card.id}
-              id={card.id}
-              img={card.img}
-              rate={card.rate}
-              des={card.des}
-              name={card.name}
-            />
+          {Datafetch.map((product:any) => (
+            <Link key={product._id} href={`/products/${product._id}`}>
+              <Card
+                key={product._id}
+                id={product._id}
+                img={urlFor(product.image).url()}
+                price={product.price}
+                des={product.category}
+                name={product.productName}
+                status={product.status}
+              />
             </Link>
           ))}
         </div>
